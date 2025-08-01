@@ -9,25 +9,35 @@ const messages = [
   "Con Garantía Liverpool tienes devoluciones sin condiciones.",
 ];
 
+const link = [
+  "ver más"
+];
+
 export default function CtaSlider() {
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handlePrev = () => {
-    const isBeforeItem = currentIndex === messages.length - 1;
-    const prev = isBeforeItem ? 0 : currentIndex - 1;
-    setCurrentIndex(prev)
+    const isFirstItem = currentIndex === 0;
+    const newIndex = isFirstItem ? messages.length - 1 : currentIndex - 1;
+    setCurrentIndex(newIndex)
+  }
+
+  const handleNext = () => {
+    const isLastItem = currentIndex === messages.length - 1;
+    const newIndex = isLastItem ? 0 : currentIndex + 1;
+    setCurrentIndex(newIndex);
   }
 
   return (
-    <section className="relative w-full bg-white text-black">
-      <button onClick={handlePrev}>&#10094;</button>
-      <button>&#10095;</button>
+    <section className="relative w-full bg-white text-black mt-4 mb-4">
+      <button onClick={handlePrev} className='absolute top-1/2 left-4 -translate-y-1/2 z-10 p-3 text-black bg-white/70 rounded-full hover:bgbutton shadow-lg'>&#10094;</button>
+      <button onClick={handleNext} className='absolute top-1/2 right-4 -translate-y-1/2 z-10 p-3 text-black bg-white/70 rounded-full hover:bg-white shadow-lg'>&#10095;</button>
 
-      <article>
-        <ul>
+      <article className="w-full h-full overflow-hidden p-4">
+        <ul className="flex h-hull transition-transform duration-700 ease-in-out" style={{transform: `translateX(-${currentIndex * 100}%)`}}>
           {messages.map((messages, index) => (
-              <li key={index}>{messages}</li>
+              <li key={index} className="w-full h-full flex-shrink-0 text-center"><p className="w-full">{messages} <a href="#"><b className="text-pink-500">{link}</b></a></p></li>
             ))
           };
         </ul>

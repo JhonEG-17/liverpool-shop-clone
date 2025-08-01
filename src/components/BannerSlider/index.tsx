@@ -28,7 +28,7 @@ export default function BannerSlider() {
   }
 
   return (
-    <section className='relative w-full h-100 bg-gray-100 overflow-hidden'>
+    <section className='relative w-full h-100 bg-gray-100 overflow-hidden mt-30'>
       <button onClick={handlePrev} className='absolute top-1/2 left-4 -translate-y-1/2 z-10 p-3 text-black bg-white/70 rounded-full hover:bgbutton shadow-lg'>&#10094;</button>
       <button onClick={handleNext} className='absolute top-1/2 right-4 -translate-y-1/2 z-10 p-3 text-black bg-white/70 rounded-full hover:bg-white shadow-lg'>&#10095;</button>
 
