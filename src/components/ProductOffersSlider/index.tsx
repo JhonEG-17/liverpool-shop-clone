@@ -123,8 +123,8 @@ export default function ProductOffersSlider () {
       ? [...visibleProducts, ...products.slice(0, itemsPerPage - visibleProducts.length)]
       : visibleProducts
   return (
-    <section className="column align-center justify-center w-full h-full">
-      <header className="flex align-center justify-between w-full h-full p-4">
+    <section className="column align-center justify-center w-full h-full mt-4 mb-4 px-4">
+      <header className="flex align-center justify-between w-full h-full">
         <h2 className="text-2xl w-full text-left">
           <b className="w-100">Hata 48% de descuento en colchones</b>
         </h2>
@@ -133,10 +133,10 @@ export default function ProductOffersSlider () {
 
       <article className="relative w-full h-full">
         {/* Slider here */}
-        <button onClick={handlePrev} className="absolute top-1/2 left-4 -translate-y-1/2 z-10 p-3 text-black rounded-full bg-white/70 hover:bg-white shadow-lg">&#10094;</button>
-        <button onClick={handleNext} className="absolute top-1/2 right-4 -translate-y-1/2 z-10 p-3 text-black rounded-full bg-white/70 hover:bg-white shadow-lg">&#10095;</button>
+        <button onClick={handlePrev} className="absolute top-1/2 left-2 -translate-y-1/2 z-10 p-3 text-black rounded-full bg-white/70 hover:bg-white shadow-lg">&#10094;</button>
+        <button onClick={handleNext} className="absolute top-1/2 right-2 -translate-y-1/2 z-10 p-3 text-black rounded-full bg-white/70 hover:bg-white shadow-lg">&#10095;</button>
 
-        <ul className="grid grid-cols-5 gap-4 p-5">
+        <ul className="grid grid-cols-5 gap-4">
           {
             fullProducts.map((product) => (
              <li key={product.id} className="max-w-[16rem]">

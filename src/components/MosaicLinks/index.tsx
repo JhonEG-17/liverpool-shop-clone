@@ -4,39 +4,56 @@ import MosaicCard from './MosaicCard'
 
 // Import resources
 
-import mosaic1 from '@/assets/mosaicos-cards/gb_sec_celulares_300725_m.avif'
-import mosaic2 from '@/assets/mosaicos-cards/gb_sec_smartwatch_250725_m.avif'
-import mosaic3 from '@/assets/mosaicos-cards/gb_sec_tablets_250725_m.avif'
-import mosaic4 from '@/assets/mosaicos-cards/gb_sec_audifonos_250725_m.avif'
 
+
+type MosaicItems = {
+  url: string,
+  itemTitle: string,
+  itemText: string,
+  altImage: string,
+  img: string,
+}
 
 type MosaicLinksProps = {
   title: string,
+  items: MosaicItems[],
 }
 
-const images = [
-  mosaic1,
-  mosaic2,
-  mosaic3,
-  mosaic4,
-]
+export default function MosaicLinks({ title, items }: MosaicLinksProps) {
+  let gridColsClass = '';
 
-export default function MosaicLinks(props: MosaicLinksProps) {
-
-  const { title } = props;
+  if (items.length === 1) {
+    gridColsClass = 'grid-cols-1';
+  } else if (items.length === 2) {
+    gridColsClass = 'grid-cols-1 sm:grid-cols-2';
+  } else if (items.length === 3) {
+    gridColsClass = 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3';
+  } else {
+    gridColsClass = 'grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4';
+  }
 
   return (
-    <section className="column align-center justify-center w-full mt-4 mb-4 p-4">
+    <section className="flex flex-col items-center justify-center w-full mt-4 mb-4 p-4">
       <h1 className="text-4xl font-semibold mb-4">
         {title}
       </h1>
 
-      <article className={`grid gap-4 w-full ${images.length === 4 ? 'md:grid-cols-2 lg:grid-cols-4' : 'grid-cols-3'}`}>
+      <article className='flex items-center justify-center w-full h-full'>
         {/* cards here */}
-        <MosaicCard url={mosaic1} altImage={'ofertas de celualares de hasta el 30%'} title={'Celulares'} text={'hasta 30% de descuento'}/>
-        <MosaicCard url={mosaic2} altImage={'ofertas de smartwatch de hasta el 20%'} title={'Smartwatch'} text={'hasta 20% de descuento'}/>
-        <MosaicCard url={mosaic3} altImage={'ofertas de tablets de hasta el 30%'} title={'Tablets'} text={'hasta 30% de descuento'}/>
-        <MosaicCard url={mosaic4} altImage={'ofertas de audifonos de hasta el 30%'} title={'Audifonos'} text={'hasta 30% de descuento'}/>
+        <ul className={`grid gap-4 items-center w-full h-full ${gridColsClass}`}>
+          {items.map((item, index) => (
+            <li key={index}>
+              <MosaicCard
+                url={item.url}
+                img={item.img}
+                altImage={item.altImage}
+                title={item.itemTitle}
+                text={item.itemText}
+              />
+            </li>
+          ))
+          }
+        </ul>
       </article>
     </section>
   );

@@ -1,23 +1,22 @@
 type MosaicCardProps = {
   url: string,
+  img: string, 
   altImage: string,
   title: string,
   text: string,
 }
 
-export default function MosaicCard(props: MosaicCardProps) {
-
-  const { url, altImage, title, text } = props
+export default function MosaicCard({ url, img, altImage, title, text }: MosaicCardProps) {
 
   return (
-    <div className="w-full h-full overflow-hidden">
-      <img className="object-cover w-full h-9/10 rounded-2xl" src={url} alt={altImage} />
-      <h3 className="mt-4 mb-2">
+    <a href={url} className="block w-full h-full overflow-hidden">
+      <img className="object-cover w-full h-[70%] rounded-2xl" src={img} alt={altImage} />
+      <h3 className="text-center text-xl md:text-2xl font-bold mt-4 mb-2">
         {title}
       </h3>
-      <p className="">
+      <p className="text-center">
         {text}
       </p>
-    </div>
+    </a>
   );
 }
