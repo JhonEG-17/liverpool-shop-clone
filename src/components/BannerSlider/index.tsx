@@ -45,5 +45,5 @@ export default function BannerSlider() {
         </ul>
       </article>
     </section>
-  )
+  );
 }

@@ -15,15 +15,15 @@ export default function NavBar() {
         </div>
 
         <button className='p-2 text-white __navbar-color-hover rounded-full'>
-          ❤
+          <span className="icon-heart text-white text-2xl "></span>
         </button>
 
         <button className='p-2 text-white __navbar-color-hover rounded-full'>
-          🛒
+          <span className="icon-location-shopping text-white text-2xl "></span>
         </button>
 
         <button className='p-2 text-white __navbar-color-hover rounded-md'>
-          Iniciar sesión
+          <span className="icon-user text-white text-3xl "></span>
         </button>
       </div>
       <div className='flex items-center justify-evenly w-full p-2 __navbar-color text-white'>

@@ -18,9 +18,9 @@ export default function BenefitsCards({ Cards }: BenefitsCardsProps) {
       <h2 className="text-3xl font-semibold mb-4">Benefiios Liverpool</h2>
 
       <article className="w-full">
-        <ul className="flex flex-wrap items-center justify-between w-full">
+        <ul className="flex flex-wrap items-center justify-center lg:justify-between w-full">
           {Cards.map((Card, index) => (
-              <li key={index} className="max-w-[25rem]"> <CardBenefit url={Card.url} image={Card.image} imageAlt={Card.imageAlt} /></li>
+              <li key={index} className="max-w-[19rem]"> <CardBenefit url={Card.url} image={Card.image} imageAlt={Card.imageAlt} /></li>
             ))
           }
         </ul>

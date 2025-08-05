@@ -8,6 +8,7 @@ import BannerDiv from './components/BannerDiv'
 import MosaicLinks from './components/MosaicLinks'
 import BannerMedium from './components/BannerMedium'
 import BenefitsCards from './components/BenefitsCards'
+import Footer from './components/Footer'
 
 // Imports for resources
 
@@ -161,6 +162,7 @@ function App() {
           },
         ]}/>
       </main>
+      <Footer />
     </>
   )
 }

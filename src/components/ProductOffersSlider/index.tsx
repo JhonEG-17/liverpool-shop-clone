@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo, useEffect } from "react";
 import image1 from "@/assets/products/11.avif";
 import image2 from "@/assets/products/10.avif";
 import image3 from "@/assets/products/9.avif";
@@ -100,57 +100,133 @@ const products = [
     actualy_prices: "$3,639.48 - $6,551.48",
     before_prices: "$6,999.00 - $12,999.00",
   },
-]
+];
 
-export default function ProductOffersSlider () {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  
-  const itemsPerPage = 5;
+function useItemsPerPage() {
+  const get = () => {
+    if (typeof window === "undefined") return 5;
+    const w = window.innerWidth;
+    if (w < 768) return 1; // móvil
+    if (w < 1024) return 3; // tablet
+    return 5; // escritorio
+  };
+
+  const [itemsPerPage, setItemsPerPage] = useState(get);
+
+  useEffect(() => {
+    let raf: number;
+    const onResize = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        setItemsPerPage(get());
+      });
+    };
+    window.addEventListener("resize", onResize);
+    return () => {
+      window.removeEventListener("resize", onResize);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
+
+  return itemsPerPage;
+}
+
+export default function ProductOffersSlider() {
+  const itemsPerPage = useItemsPerPage();
+
+  const pages = useMemo(() => {
+    const chunks: typeof products[] = [];
+    for (let i = 0; i < products.length; i += itemsPerPage) {
+      chunks.push(products.slice(i, i + itemsPerPage));
+    }
+    return chunks;
+  }, [itemsPerPage]);
+
+  const totalPages = pages.length;
+  const [page, setPage] = useState(0);
+
+  useEffect(() => {
+    if (page >= totalPages) {
+      setPage(0);
+    }
+  }, [totalPages, page]);
 
   const handlePrev = () => {
-    const nextIndex = currentIndex + itemsPerPage
-    setCurrentIndex(nextIndex >= products.length ? 0 : nextIndex)
-  }
+    setPage((p) => (p - 1 + totalPages) % totalPages);
+  };
 
   const handleNext = () => {
-    const prevIndex = currentIndex - itemsPerPage
-    setCurrentIndex(prevIndex < 0 ? products.length - itemsPerPage : prevIndex)
-  }
+    setPage((p) => (p + 1) % totalPages);
+  };
 
-  const visibleProducts = products.slice(currentIndex, currentIndex + itemsPerPage)
-
-  const fullProducts = visibleProducts.length < itemsPerPage
-      ? [...visibleProducts, ...products.slice(0, itemsPerPage - visibleProducts.length)]
-      : visibleProducts
   return (
-    <section className="column align-center justify-center w-full h-full mt-4 mb-4 px-4">
-      <header className="flex align-center justify-between w-full h-full">
-        <h2 className="text-2xl w-full text-left">
-          <b className="w-100">Hata 48% de descuento en colchones</b>
+    <section className="flex flex-col w-full mt-4 mb-4 px-4">
+      <header className="flex justify-between items-center w-full mb-4">
+        <h2 className="text-2xl font-bold">
+          Hasta 48% de descuento en colchones
         </h2>
-        <a href="#" className="text-pink-500 text-[1rem] font-medium w-100 text-right">Ver más &#10095;</a>
+        <a href="#" className="text-pink-500 text-sm font-medium">
+          Ver más &#10095;
+        </a>
       </header>
 
-      <article className="relative w-full h-full">
-        {/* Slider here */}
-        <button onClick={handlePrev} className="absolute top-1/2 left-2 -translate-y-1/2 z-10 p-3 text-black rounded-full bg-white/70 hover:bg-white shadow-lg">&#10094;</button>
-        <button onClick={handleNext} className="absolute top-1/2 right-2 -translate-y-1/2 z-10 p-3 text-black rounded-full bg-white/70 hover:bg-white shadow-lg">&#10095;</button>
+      <div className="relative overflow-hidden w-full">
+        <button
+          onClick={handlePrev}
+          className="absolute top-1/2 left-2 -translate-y-1/2 z-10 p-3 text-black rounded-full bg-white/70 hover:bg-white shadow-lg"
+        >
+          &#10094;
+        </button>
+        <button
+          onClick={handleNext}
+          className="absolute top-1/2 right-2 -translate-y-1/2 z-10 p-3 text-black rounded-full bg-white/70 hover:bg-white shadow-lg"
+        >
+          &#10095;
+        </button>
 
-        <ul className="grid grid-cols-5 gap-4">
-          {
-            fullProducts.map((product) => (
-             <li key={product.id} className="max-w-[16rem]">
-                <div>
-                  <img src={product.image} alt={product.name} />
-                  <p className="text-center flex-wrap">{product.description}</p>
-                  <p className="text-center text-red-500 font-semibold">{product.actualy_prices}</p>
-                  <p className="text-center"><small>{product.before_prices}</small></p>
-                </div>
-             </li>
-            ))
-          }
-        </ul>
-      </article>
+        <div
+          className="flex transition-transform duration-700 ease-in-out"
+          style={{
+            width: `${totalPages * 100}%`,
+            transform: `translateX(-${(page * 100) / totalPages}%)`,
+          }}
+        >
+          {pages.map((chunk, idx) => (
+            <ul
+              key={idx}
+              className="flex justify-center flex-shrink-0 w-full"
+              style={{ width: `${100 / totalPages}%` }}
+            >
+              <li
+                className={`grid gap-4 ${itemsPerPage === 1
+                    ? "grid-cols-1 justify-center"
+                    : itemsPerPage === 3
+                      ? "grid-cols-1 sm:grid-cols-3"
+                      : "grid-cols-5"
+                  }`}
+              >
+
+                {chunk.map((product) => (
+                  <div key={product.id} className="max-w-[16rem]">
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      className="w-full object-cover rounded"
+                    />
+                    <p className="text-center">{product.description}</p>
+                    <p className="text-center text-red-500 font-semibold">
+                      {product.actualy_prices}
+                    </p>
+                    <p className="text-center">
+                      <small>{product.before_prices}</small>
+                    </p>
+                  </div>
+                ))}
+              </li>
+            </ul>
+          ))}
+        </div>
+      </div>
     </section>
   );
 }
