@@ -6,7 +6,9 @@ export default function NavBar() {
   return (
     <nav className='column items-center justify-center w-full'>
       <div className='flex items-center justify-evenly space-x-4 w-full p-4'>
-        <img className='h-10' src={Logo} alt="Logo Liverpool" />
+        <a href="/" aria-label='regresar al inicio del sitio de liverpool'>
+          <img className='h-10' src={Logo} alt="Logo Liverpool" />
+        </a>
 
         <div className='flex items-center justify-center bg-white rounded-md w-full'>
           <input className='p-2 w-full' type="text" placeholder='Buscar...' />
