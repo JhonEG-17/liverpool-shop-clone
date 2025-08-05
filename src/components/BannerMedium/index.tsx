@@ -4,9 +4,7 @@ type BannerMediumProps = {
   imageAlt: string,
 }
 
-export default function BannerMedium(props: BannerMediumProps) {
-
-  const { url, image, imageAlt } = props;
+export default function BannerMedium({ url, image, imageAlt }: BannerMediumProps) {
 
   return (
     <section className="block align-center justify-center w-full mt-4 mb-4 px-4">

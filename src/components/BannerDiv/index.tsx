@@ -1,6 +1,4 @@
-export default function BanerDiv (props: BannerDivProps) {
-
-  const { image, title, subtitle, imageAlt } = props;
+export default function BanerDiv ({ image, title, subtitle, imageAlt }: BannerDivProps) {
 
   return (
     <section className="column align-center justify-center w-full h-full mt-4 mb-4 p-4">
