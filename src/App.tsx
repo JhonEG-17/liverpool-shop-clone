@@ -7,6 +7,7 @@ import ProductOffersSlider from './components/ProductOffersSlider'
 import BannerDiv from './components/BannerDiv'
 import MosaicLinks from './components/MosaicLinks'
 import BannerMedium from './components/BannerMedium'
+import BenefitsCards from './components/BenefitsCards'
 
 // Imports for resources
 
@@ -29,6 +30,13 @@ import mosaic7 from '@/assets/mosaicos-cards/gb_sec_vestidos_250725.avif'
 
 import mosaic8 from '@/assets/mosaicos-cards/gb_sec_pantallas_250725.avif'
 import mosaic9 from '@/assets/mosaicos-cards/gb_sec_cocina_250725.avif'
+
+// Cards image imports
+
+import card1 from '@/assets/cards/bfooter01_EnvioGratis_0824.avif'
+import card2 from '@/assets/cards/bfooter02_ClickAndCollect_0824.avif'
+import card3 from '@/assets/cards/bfooter03_Garantia_0824.avif'
+import card4 from '@/assets/cards/bfooter04_Live_0824.avif'
 
 //  Import custom styles
 
@@ -130,6 +138,28 @@ function App() {
         <ProductOffersSlider />
         <BannerDiv image={BannerSecurity} title={""} subtitle={""} imageAlt='asegura tu auto con seguros liverpool' />
         <BannerMedium url='#' image={BannerSmallDiv2} imageAlt='Descara la app loverpool pocket, utiliza el código (POCKETMENOS5) y obten un 5% de descuento adicional en tu primera compra' />
+        <BenefitsCards Cards={[
+          {
+            url: '#',
+            image: card1,
+            imageAlt: '#',
+          },
+          {
+            url: '#',
+            image: card2,
+            imageAlt: '#',
+          },
+          {
+            url: '#',
+            image: card3,
+            imageAlt: '#',
+          },
+          {
+            url: '#',
+            image: card4,
+            imageAlt: '#',
+          },
+        ]}/>
       </main>
     </>
   )
