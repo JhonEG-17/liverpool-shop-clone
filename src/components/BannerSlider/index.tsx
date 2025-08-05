@@ -37,7 +37,7 @@ export default function BannerSlider() {
           {banner.map((banner, index) => (
               <li key={index} className='w-full h-full flex-shrink-0'>
                 <a href={"#"}>
-                  <img className='w-full h-full object-cover' src={banner} alt={`banner ${index + 1}`} />
+                  <img className='w-full h-full object-cover' src={banner} alt={`banner ${index + 1}`} title={`banner ${index + 1 }`} tabIndex={0}/>
                 </a>
               </li>
             ))
